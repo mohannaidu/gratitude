@@ -1,5 +1,6 @@
 {
-  "name": "gratitude-app",
+  "name": "gratitude",
+  "homepage": "https://mohannaidu.github.io/gratitude",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,7 +28,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +53,7 @@
   "devDependencies": {
     "@types/draft-js": "^0.11.4",
     "@types/html-to-draftjs": "^1.4.0",
-    "@types/react-draft-wysiwyg": "^1.13.3"
+    "@types/react-draft-wysiwyg": "^1.13.3",
+    "gh-pages": "^3.2.3"
   }
 }
