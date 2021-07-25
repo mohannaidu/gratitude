@@ -36,10 +36,7 @@ export default function App() {
 
           <div className="row">
               <div className="col-md-6 offset-md-3">
-                  <div style={{ border: "1px solid grey", padding: '2px', minHeight: '400px' }}>
                       <ListEditor/>
-
-                  </div>
               </div>
           </div>
       </div>

@@ -1,37 +1,31 @@
-import React, {Component} from 'react';
-import { EditorState, ContentState} from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import htmlToDraft from 'html-to-draftjs';
+import React, {Component, KeyboardEvent } from 'react';
+import './ListEditor.css';
 
 interface Props {}
 
 interface State {
-    editorState: EditorState;
+    counter: number;
+    text: string;
 }
 
 export class ListEditor extends Component<Props, State> {
-    private editorRef: React.RefObject<Editor>;
+    private textInput: React.RefObject<HTMLTextAreaElement>;
     constructor(props :any) {
         super(props);
-        const starterList = '<ol><li></li></ol>';
-        const contentBlock = htmlToDraft(starterList);
-        if (contentBlock) {
-            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-            const outputEditorState = EditorState.createWithContent(contentState);
-            this.state = {
-                editorState: outputEditorState
-            };
+        this.state = {
+            counter: 2,
+            text : "1. "
         }
-        this.editorRef = React.createRef<Editor>();
-
+        this.textInput = React.createRef();
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     focus = () => {
-        let editor = this.editorRef.current;
-        if (editor) {
-            editor.focusEditor();
-        }
+         let editor = this.textInput.current;
+         if (editor) {
+             editor.focus();
+         }
     };
 
     componentDidMount() {
@@ -39,24 +33,40 @@ export class ListEditor extends Component<Props, State> {
         this.focus();
     }
 
-    onEditorStateChange = (editorState: EditorState) => {
-        // console.log(editorState)
-        this.setState({
-            editorState
-        });
-    };
+    handleKeyDown(e: KeyboardEvent) {
+        if (e.key ==="Enter") {
+
+            //this.refs.textInput.value = `${this.refs.textInput.value}\n${this.state.counter++}. `;
+            this.setState({
+                    counter : this.state.counter + 1
+                }
+            )
+            this.setState({
+                text: this.state.text + "\n" + this.state.counter + ". "
+            })
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+
+    handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+        console.log(e.target.value);
+        this.setState({text: e.target.value});
+    }
 
     render() {
-        const { editorState } = this.state;
+        const text = this.state.text;
+        const style = {
+            height: 300,
+            width: 400
+        };
         return(
-           <div>
-            <Editor
-                editorState={editorState}
-                ref={this.editorRef}
-                onEditorStateChange={this.onEditorStateChange}
-                toolbarHidden={true}
+            <textarea
+                ref={this.textInput}
+                value={text}
+                onKeyDown={this.handleKeyDown}
+                onChange={this.handleChange}
             />
-           </div>
         )
     }
 
