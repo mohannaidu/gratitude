@@ -56,16 +56,14 @@ export class ListEditor extends Component<Props, State> {
 
     render() {
         const text = this.state.text;
-        const style = {
-            height: 300,
-            width: 400
-        };
+
         return(
             <textarea
                 ref={this.textInput}
                 value={text}
                 onKeyDown={this.handleKeyDown}
                 onChange={this.handleChange}
+                spellCheck="false"
             />
         )
     }
