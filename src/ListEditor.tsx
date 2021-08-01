@@ -24,7 +24,10 @@ export class ListEditor extends Component<Props, State> {
     focus = () => {
          let editor = this.textInput.current;
          if (editor) {
+             let val = editor.value;
              editor.focus();
+             editor.value = "";
+             editor.value= val;
          }
     };
 
@@ -64,6 +67,7 @@ export class ListEditor extends Component<Props, State> {
                 onKeyDown={this.handleKeyDown}
                 onChange={this.handleChange}
                 spellCheck="false"
+
             />
         )
     }
