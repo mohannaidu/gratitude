@@ -1,7 +1,9 @@
 import React, {Component, KeyboardEvent } from 'react';
 import './ListEditor.css';
 
-interface Props {}
+interface Props {
+    entry: string;
+}
 
 interface State {
     counter: number;
@@ -14,7 +16,7 @@ export class ListEditor extends Component<Props, State> {
         super(props);
         this.state = {
             counter: 2,
-            text : "1. "
+            text : "1. " + this.props.entry
         }
         this.textInput = React.createRef();
         this.handleChange = this.handleChange.bind(this);

@@ -7,20 +7,28 @@ import "react-datepicker/dist/react-datepicker.css";
 import {auth, Providers} from './config/firebase';
 import { SignInWithSocialMedia } from './auth';
 import firebase from "firebase/app";
+import {Repository} from './db/repository';
 
 interface UserState {
     isAuthenticated: boolean;
     name: string;
 }
 
+// interface GratitudeState {
+//     entry: string;
+// }
+
 export default function App(){
     const [startDate, setStartDate] = useState(new Date());
     const [error, setError] = useState<string>('');
     const [user, setUser] = useState<UserState>({isAuthenticated:false, name:""});
-
+    let repo: Repository = new Repository();
+    const [entries, setEntries] = useState<string>('');
+   // const [entry, setEntry] = useState<GratitudeState>({entry:"lorem ipsum"});
 
     // Monitor and Update user state.
     useEffect(() => {
+
         auth.onAuthStateChanged(user => {
             if (user) {
                 let displayName:string = auth.currentUser?.displayName!;
@@ -30,7 +38,13 @@ export default function App(){
                 setUser({isAuthenticated:false,name:""})
             }
         })
+        fetchData();
     }, []);
+
+    const fetchData = async () => {
+        const result = await repo.getAllGratitudeByUserAndDate();
+        setEntries(result);
+    }
 
     const signInWithSocialMedia = (provider: firebase.auth.AuthProvider) => {
         if (error !== '') setError('');
@@ -108,7 +122,7 @@ export default function App(){
 
           <div className="row">
               <div className="col-md-6 offset-md-3">
-                      <ListEditor/>
+                  {entries &&  <ListEditor entry={entries}/> }
               </div>
           </div>
       </div>
