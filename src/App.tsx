@@ -122,7 +122,7 @@ export default function App(){
 
           <div className="row">
               <div className="col-md-6 offset-md-3">
-                  {entries &&  <ListEditor entry={entries}/> }
+                  <ListEditor entry={entries}/>
               </div>
           </div>
       </div>

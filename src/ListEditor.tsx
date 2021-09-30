@@ -45,6 +45,16 @@ export class ListEditor extends Component<Props, State> {
         //console.log("component mounted");
         this.focus();
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.entry) {
+            const entryCounter: number = this.getCounter(nextProps.entry) + 1;
+            this.state = {
+                counter: entryCounter,
+                text: nextProps.entry
+            }
+        }
+
+    }
 
     getCounter(str: String){
         var ks = str.split(/\r?\n/);
