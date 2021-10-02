@@ -42,7 +42,6 @@ export class ListEditor extends Component<Props, State> {
     };
 
     componentDidMount() {
-        //console.log("component mounted");
         this.focus();
     }
     componentWillReceiveProps(nextProps) {
@@ -59,7 +58,6 @@ export class ListEditor extends Component<Props, State> {
     getCounter(str: String){
         var ks = str.split(/\r?\n/);
         var lastLine = ks[ks.length-1].split(".");
-        console.log(lastLine[0]);
         return +lastLine[0];
     }
 
@@ -81,7 +79,10 @@ export class ListEditor extends Component<Props, State> {
 
     handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         console.log(e.target.value);
-        this.setState({text: e.target.value});
+        if (e.target.value == ""){
+            this.setState({text: "1. ", counter: 2});
+        }else
+            this.setState({text: e.target.value});
     }
 
     render() {
