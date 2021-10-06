@@ -1,13 +1,13 @@
 import firebase from 'firebase/app';
+import 'firebase/firestore';
 import 'firebase/auth';
-import 'firebase/database';
 import config from './config';
 
-const FirebaseStore = firebase.initializeApp(config.firebase);
+const firebaseStore = firebase.initializeApp(config.firebase);
 
 export const Providers = {
     google: new firebase.auth.GoogleAuthProvider(),
 };
 
 export const auth = firebase.auth();
-export const db = firebase.database();
+export const db = firebaseStore.firestore();//firebase.database().ref("users");
