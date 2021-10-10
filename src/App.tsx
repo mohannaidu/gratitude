@@ -95,7 +95,7 @@ export default function App(){
     }
 
   return (
-      <div className="container">
+      <div className="container-fluid">
           <div className="row">
               <div className="col-md-6 offset-md-3">
                   <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -114,13 +114,19 @@ export default function App(){
                   </nav>
               </div>
           </div>
-          <div className="row sub-header">
-              <div>
-                  Welcome {user.name}
+          <div className="row">
+              <div className="col-md-3 outside"></div>
+              <div className="col-md-6">
+                  <div className="row">
+                      <div className="col-md-6">
+                        Welcome {user.name}
+                      </div>
+                      <div className="col-md-6 calendar">
+                          <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={(date) => setStartDate(date)} />
+                      </div>
+                  </div>
               </div>
-              <div  className="one">
-                  <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={(date) => setStartDate(date)} />
-              </div>
+              <div className="col-md-3 outside"></div>
           </div>
 
           <div className="row">

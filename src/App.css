@@ -2,12 +2,26 @@
     display: grid;
     gap: 1rem;
 }
-
-.sub-header{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
+/*grid-gap: 10px;*/
+.outside{
+    /*background-color: blue;*/
 }
-.one{
-    justify-self: start;
+.calendar{
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+    /*background-color: red;*/
+}
+
+.subheader{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.subheader > div{
+    align-items: end;
+}
+
+.react-datepicker__input-container > input{
+    text-align: right;
 }

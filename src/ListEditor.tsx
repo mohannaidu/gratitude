@@ -52,7 +52,7 @@ export class ListEditor extends Component<Props, State> {
     }
 
 
-    getCounter(str: String){
+    getTextAreaLineCounter(str: String){
         var ks = str.split(/\r?\n/);
         var lastLine = ks[ks.length-1].split(".");
         return +lastLine[0];
@@ -60,9 +60,9 @@ export class ListEditor extends Component<Props, State> {
 
     handleKeyDown(e: KeyboardEvent) {
         if (e.key ==="Enter") {
-
+            const lineCount = this.getTextAreaLineCounter(this.state.text);
             this.setState({
-                    counter : this.state.counter + 1
+                    counter : lineCount + 1
                 }
             )
             this.setState({
