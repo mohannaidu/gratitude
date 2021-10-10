@@ -2,16 +2,19 @@ import {db, auth} from "../config/firebase";
 import firebase from 'firebase/app';
 
 export class Repository {
-    getAllGratitudeByUserAndDate(): Promise<string> {
+    getAllGratitudeByUserAndDate(date: string): Promise<string> {
         return new Promise((resolve, reject) =>
         {
             let entry: string = '';
-
+            // console.log(date);
+            // '2021-10-02
             const timestamp = firebase.firestore.Timestamp.fromDate(
-                new Date('2021-10-02 00:00:00')
+                new Date(date + ' 00:00:00')
             )
             let uid: string = '';
             uid=  auth.currentUser?.uid!;
+            const userEmail = auth.currentUser?.email;
+            console.log(userEmail);
 
             let collection = db.collection('users');
             if (uid!==undefined)

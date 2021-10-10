@@ -43,7 +43,9 @@ export default function App(){
     }, []);
 
     const fetchData = async () => {
-        const result = await repo.getAllGratitudeByUserAndDate();
+        const today = new Date();
+        const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        const result = await repo.getAllGratitudeByUserAndDate(date);
         setEntries(result);
     }
 
@@ -97,7 +99,7 @@ export default function App(){
           <div className="row">
               <div className="col-md-6 offset-md-3">
                   <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                      <div className="navbar-brand" >Daily Gratitude</div>
+                      <div className="navbar-brand" >Thankful Diary</div>
                       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                           <span className="navbar-toggler-icon"></span>
@@ -112,12 +114,12 @@ export default function App(){
                   </nav>
               </div>
           </div>
-          <div className="row">
-              <div className="col-md-3 offset-md-3 text-left">
+          <div className="row sub-header">
+              <div>
                   Welcome {user.name}
               </div>
-              <div className="col-md-1  text-right">
-                  <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+              <div  className="one">
+                  <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={(date) => setStartDate(date)} />
               </div>
           </div>
 
