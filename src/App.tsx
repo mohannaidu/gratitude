@@ -9,6 +9,7 @@ import { SignInWithSocialMedia } from './auth';
 import firebase from "firebase/app";
 import {Repository} from './db/repository';
 
+
 interface UserState {
     isAuthenticated: boolean;
     name: string;
@@ -71,16 +72,16 @@ export default function App(){
 
     function LoginButton(props) {
         return (
-            <button onClick={props.onClick}>
-                Login
+            <button className="custom" onClick={props.onClick}>
+                <i className="fas fa-sign-in-alt"></i>
             </button>
         );
     }
 
     function LogoutButton(props) {
         return (
-            <button onClick={props.onClick}>
-                Logout
+            <button className="custom" onClick={props.onClick}>
+                <i className="fas fa-sign-out-alt"></i>
             </button>
         );
     }
@@ -99,7 +100,7 @@ export default function App(){
           <div className="row">
               <div className="col-md-6 offset-md-3">
                   <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                      <div className="navbar-brand" >Thankful Diary</div>
+                      <div className="navbar-brand" ><h1 className="display-3 text-muted">Thankful Diary</h1></div>
                       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                           <span className="navbar-toggler-icon"></span>
