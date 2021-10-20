@@ -17,9 +17,6 @@ interface UserState {
     name: string;
 }
 
-// interface GratitudeState {
-//     entry: string;
-// }
 
 export default function App(){
     const [startDate, setStartDate] = useState(new Date());
@@ -27,7 +24,6 @@ export default function App(){
     const [user, setUser] = useState<UserState>({isAuthenticated:false, name:""});
     let repo: Repository = new Repository();
     const [entries, setEntries] = useState<string>('');
-   // const [entry, setEntry] = useState<GratitudeState>({entry:"lorem ipsum"});
 
     // Monitor and Update user state.
     useEffect(() => {
@@ -35,20 +31,22 @@ export default function App(){
         auth.onAuthStateChanged(user => {
             if (user) {
                 let displayName:string = auth.currentUser?.displayName!;
-                setUser({isAuthenticated:true,name:displayName})
+                let uid:string = auth.currentUser?.uid!;
+                setUser({isAuthenticated:true,name:displayName});
+                fetchData(uid);
             } else {
                 console.log('No user detected');
                 setUser({isAuthenticated:false,name:""})
             }
         })
-        fetchData();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const fetchData = async () => {
+    const fetchData = async (uid:string) => {
         const today = new Date();
         const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        const result = await repo.getAllGratitudeByUserAndDate(date);
+        const result = await repo.getAllGratitudeByUserAndDate(date, uid);
         setEntries(result);
     }
 
