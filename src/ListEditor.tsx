@@ -1,6 +1,7 @@
 import React, {Component, KeyboardEvent } from 'react';
 import './ListEditor.css';
 
+
 interface Props {
     entry: string;
 }

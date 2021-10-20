@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import {ListEditor} from "./ListEditor";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -73,7 +75,7 @@ export default function App(){
     function LoginButton(props) {
         return (
             <button className="custom" onClick={props.onClick}>
-                <i className="fas fa-sign-in-alt"></i>
+                <FontAwesomeIcon icon={faSignInAlt} />
             </button>
         );
     }
@@ -81,7 +83,7 @@ export default function App(){
     function LogoutButton(props) {
         return (
             <button className="custom" onClick={props.onClick}>
-                <i className="fas fa-sign-out-alt"></i>
+                <FontAwesomeIcon icon={faSignOutAlt} />
             </button>
         );
     }
