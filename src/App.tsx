@@ -62,6 +62,10 @@ export default function App(){
             });
     }
 
+    const handleCallback = (childData: string): void => {
+        console.log(childData);
+    }
+
     const isLoggedIn = user.isAuthenticated;
     let button;
     if (isLoggedIn) {
@@ -132,7 +136,7 @@ export default function App(){
 
           <div className="row">
               <div className="col-md-6 offset-md-3">
-                  <ListEditor entry={entries}/>
+                  <ListEditor entry={entries} handleCallback={handleCallback} />
               </div>
           </div>
       </div>

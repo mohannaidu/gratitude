@@ -42,3 +42,9 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+@media only screen and (max-width: 360px) and (orientation: portrait){
+    h1 {
+        zoom: 50%;
+    }
+}

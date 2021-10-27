@@ -4,6 +4,7 @@ import './ListEditor.css';
 
 interface Props {
     entry: string;
+    handleCallback: (arg: string) => void
 }
 
 interface State {
@@ -13,8 +14,10 @@ interface State {
 
 export class ListEditor extends Component<Props, State> {
     private textInput: React.RefObject<HTMLTextAreaElement>;
+    private prop;
     constructor(props :any) {
         super(props);
+        this.prop  = this.props;
 
         this.state = {
             counter: 2,
@@ -49,6 +52,7 @@ export class ListEditor extends Component<Props, State> {
 
             return { text: formattedText };
         }
+        //props.handleCallback("Data from child");
         return props.errors ? {errors: props.errors} : null;
     }
 
@@ -62,6 +66,12 @@ export class ListEditor extends Component<Props, State> {
     handleKeyDown(e: KeyboardEvent) {
         if (e.key ==="Enter") {
             const lineCount = this.getTextAreaLineCounter(this.state.text);
+
+
+            // checking if linecount is 1
+            // if (lineCount == 1)
+            //     db
+            this.prop.handleCallback(this.state.text);
             this.setState({
                     counter : lineCount + 1
                 }
