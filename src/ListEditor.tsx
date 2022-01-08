@@ -43,12 +43,9 @@ export class ListEditor extends Component<Props, State> {
     }
 
     // right now it makes it ready only, which seems to be for current use case
-    static getDerivedStateFromProps(props, state) {
+    static getDerivedStateFromProps(props) {
         if (props.entry){
-            let formattedText='';
-            for (let i = 0; i < props.entry.length; i++) {
-                formattedText = formattedText + (i+1) + '. ' + props.entry[i] + '\r\n';
-            }
+            let formattedText=props.entry+ '\r\n';
 
             return { text: formattedText };
         }
@@ -56,11 +53,9 @@ export class ListEditor extends Component<Props, State> {
         return props.errors ? {errors: props.errors} : null;
     }
 
-
     getTextAreaLineCounter(str: String){
         var ks = str.split(/\r?\n/);
-        var lastLine = ks[ks.length-1].split(".");
-        return +lastLine[0];
+        return ks.length+1;
     }
 
     handleKeyDown(e: KeyboardEvent) {
