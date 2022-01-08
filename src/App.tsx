@@ -63,7 +63,9 @@ export default function App(){
     }
 
     const handleCallback = (childData: string): void => {
+        const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
         console.log(childData);
+        repo.create(childData, date);
     }
 
     const isLoggedIn = user.isAuthenticated;

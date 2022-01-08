@@ -37,27 +37,44 @@ export class Repository {
         return db.collection('users').get();
     }
 
-    create(gratitude) {
+    create(gratitude, date) {
 
-            // console.log(date);
-            // '2021-10-02
-            const timestamp = firebase.firestore.Timestamp.fromDate(
-                new Date('2021-10-02 00:00:00')
-            )
-            let uid: string = '';
-            uid=  auth.currentUser?.uid!;
-            const userEmail = auth.currentUser?.email;
-            console.log(userEmail);
+        // console.log(date);
+        // '2021-10-02
+        const timestamp = firebase.firestore.Timestamp.fromDate(
+            new Date(date+ ' 00:00:00')
+        )
+        let uid: string = '';
+        uid=  auth.currentUser?.uid!;
+        const userEmail = auth.currentUser?.email;
+        //console.log(userEmail);
 
-            let collection = db.collection('users');
-            if (uid!==undefined)
-                collection.where(firebase.firestore.FieldPath.documentId(), '==', uid)
+        let collection = db.collection('users');
+        if (uid!==undefined) {
+            collection.doc(uid)
+                .collection('entry')
+                .where('date_of_entry', '==', timestamp)
+                .get().then(function (record) {
+                if (record.empty){ // this is for adding new record
+                    collection.doc(uid)
+                        .collection('entry').add({
+                        'date_of_entry' : timestamp,
+                        'text' : gratitude
+                    })
+                }
+                else{
+                    collection.doc(uid)
+                        .collection('entry')
+                        .doc(record.docs[0].id)
+                        .update({
+                            'date_of_entry' : timestamp,
+                            'text' : gratitude
+                        })
+                }
+            });
 
-            collection.where('date_of_entry','==',timestamp)
-        collection.add({
-            'date_of_entry' : timestamp,
+        }
 
-        })
 
     }
 
