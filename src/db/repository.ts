@@ -3,8 +3,7 @@ import firebase from 'firebase/app';
 
 export class Repository {
     getAllGratitudeByUserAndDate(date: string, uid: string): Promise<string> {
-        return new Promise((resolve, reject) =>
-        {
+        return new Promise(async (resolve, reject) => {
             let entry: string = '';
             // console.log(date);
             // '2021-10-02
@@ -12,23 +11,28 @@ export class Repository {
                 new Date(date + ' 00:00:00')
             )
 
-            if (uid!==undefined) {
+            if (uid !== undefined) {
                 let collection = db.collection('users').doc(uid);
-                collection.collection('entry')
+                const snapshot = await collection.collection('entry')
                     .where('date_of_entry', '==', timestamp)
-                    .get().then(function (doc) {
-                        let row: number = 1;
-                        doc.docs.forEach(function (childSnapshot: any) {
-                            console.log(childSnapshot.data().text);
-                            if (row === 1) {
-                                entry = childSnapshot.data().text;
-                                //console.log(entry);
-                                resolve(entry);
-                            }
-                            row++;
-                        });
-                    }
-                );
+                    .get();
+                if (snapshot.empty) {
+                    resolve('');
+                } else {
+                    let row: number = 1;
+                    snapshot.docs.forEach(function (childSnapshot: any) {
+                        console.log(childSnapshot.data().text);
+                        if (row === 1) {
+                            entry = childSnapshot.data().text;
+                            //console.log(entry);
+                            resolve(entry);
+                        } else {
+                            resolve('');
+                        }
+                        row++;
+                    });
+                }
+
             }
         })
     }

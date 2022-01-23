@@ -46,8 +46,16 @@ export default function App(){
     const fetchData = async (uid:string) => {
         const today = new Date();
         const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        const result = await repo.getAllGratitudeByUserAndDate(date, uid);
-        setEntries(result);
+        repo.getAllGratitudeByUserAndDate(date, uid).then(
+            result => {
+                if (result) {
+                    setEntries(result);
+                }else{
+                    setEntries("1. ");
+                }
+
+        }
+        );
     }
 
     const signInWithSocialMedia = (provider: firebase.auth.AuthProvider) => {
@@ -101,6 +109,11 @@ export default function App(){
         setUser({isAuthenticated: false, name:""});
     }
 
+    function onChange(newName) {
+        setEntries(newName);
+    }
+
+
   return (
       <div className="container-fluid">
           <div className="row">
@@ -138,7 +151,7 @@ export default function App(){
 
           <div className="row">
               <div className="col-md-6 offset-md-3">
-                  <ListEditor entry={entries} handleCallback={handleCallback} />
+                  <ListEditor entry={entries} handleCallback={handleCallback} onEntryChange={onChange}/>
               </div>
           </div>
       </div>

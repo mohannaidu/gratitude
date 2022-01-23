@@ -1,10 +1,11 @@
-import React, {Component, KeyboardEvent } from 'react';
+import React, {Component, KeyboardEvent, useEffect} from 'react';
 import './ListEditor.css';
 
 
 interface Props {
     entry: string;
-    handleCallback: (arg: string) => void
+    handleCallback: (arg: string) => void;
+    onEntryChange: (arg: string) => void
 }
 
 interface State {
@@ -14,19 +15,18 @@ interface State {
 
 export class ListEditor extends Component<Props, State> {
     private textInput: React.RefObject<HTMLTextAreaElement>;
-    private prop;
     constructor(props :any) {
         super(props);
-        this.prop  = this.props;
 
         this.state = {
             counter: 2,
-            text : "1. "
+            text : this.props.entry
         }
         this.textInput = React.createRef();
         this.handleChange = this.handleChange.bind(this);
-        this.handleKeyDown = this.handleKeyDown.bind(this);
+       // this.handleKeyDown = this.handleKeyDown.bind(this);
     }
+
 
     focus = () => {
          let editor = this.textInput.current;
@@ -42,49 +42,42 @@ export class ListEditor extends Component<Props, State> {
         this.focus();
     }
 
-    // right now it makes it ready only, which seems to be for current use case
-    static getDerivedStateFromProps(props) {
-        if (props.entry){
-            let formattedText=props.entry+ '\r\n';
 
-            return { text: formattedText };
-        }
-        //props.handleCallback("Data from child");
-        return props.errors ? {errors: props.errors} : null;
-    }
 
     getTextAreaLineCounter(str: String){
         var ks = str.split(/\r?\n/);
-        return ks.length+1;
+        return ks.length;
     }
 
-    handleKeyDown(e: KeyboardEvent) {
+    handleKeyDown = (e: KeyboardEvent) => {
         if (e.key ==="Enter") {
-            const lineCount = this.getTextAreaLineCounter(this.state.text);
+            const lineCount = this.getTextAreaLineCounter(this.props.entry);
 
 
             // checking if linecount is 1
             // if (lineCount == 1)
             //     db
-            this.prop.handleCallback(this.state.text);
+            this.props.handleCallback(this.props.entry);
             this.setState({
-                    counter : lineCount + 1
-                }
-            )
-            this.setState({
-                text: this.state.text + "\n" + this.state.counter + ". "
-            })
+                    counter : lineCount +1
+                }, () => {
+                    this.props.onEntryChange(this.props.entry + "\n" + this.state.counter + ". ");
+            });
+
+
             e.preventDefault();
             e.stopPropagation();
         }
     }
 
-    handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
        // console.log(e.target.value);
         if (e.target.value === ""){
             this.setState({text: "1. ", counter: 2});
-        }else
-            this.setState({text: e.target.value});
+        }else {
+            //this.setState({text: e.target.value});
+            this.props.onEntryChange(e.target.value);
+        }
     }
 
     render() {
@@ -93,7 +86,7 @@ export class ListEditor extends Component<Props, State> {
         return(
             <textarea
                 ref={this.textInput}
-                value={text}
+                value={this.props.entry}
                 onKeyDown={this.handleKeyDown}
                 onChange={this.handleChange}
                 spellCheck="false"
