@@ -43,9 +43,18 @@ export default function App(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        let uid:string = auth.currentUser?.uid!;
+        fetchData(uid);
+        return () => {
+            // removing the listener when props.x changes
+        }
+    }, [startDate])
+
     const fetchData = async (uid:string) => {
-        const today = new Date();
-        const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        //const today = new Date();
+        //const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
         repo.getAllGratitudeByUserAndDate(date, uid).then(
             result => {
                 if (result) {
@@ -53,7 +62,6 @@ export default function App(){
                 }else{
                     setEntries("1. ");
                 }
-
         }
         );
     }
@@ -113,6 +121,10 @@ export default function App(){
         setEntries(newName);
     }
 
+    function handleDateChange(date) {
+         setStartDate(date);
+    };
+
 
   return (
       <div className="container-fluid">
@@ -142,7 +154,7 @@ export default function App(){
                         Welcome {user.name}
                       </div>
                       <div className="col-md-6 calendar">
-                          <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={(date) => setStartDate(date)} />
+                          <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />
                       </div>
                   </div>
               </div>
