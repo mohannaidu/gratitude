@@ -1,4 +1,4 @@
-import React, {Component, KeyboardEvent, useEffect} from 'react';
+import React, {Component, KeyboardEvent} from 'react';
 import './ListEditor.css';
 
 

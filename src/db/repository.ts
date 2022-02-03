@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 
 export class Repository {
     getAllGratitudeByUserAndDate(date: string, uid: string): Promise<string> {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve) => {
             let entry: string = '';
             // console.log(date);
             // '2021-10-02
@@ -50,7 +50,7 @@ export class Repository {
         )
         let uid: string = '';
         uid=  auth.currentUser?.uid!;
-        const userEmail = auth.currentUser?.email;
+        //const userEmail = auth.currentUser?.email;
         //console.log(userEmail);
 
         let collection = db.collection('users');

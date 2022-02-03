@@ -43,17 +43,7 @@ export default function App(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
-        let uid:string = auth.currentUser?.uid!;
-        fetchData(uid);
-        return () => {
-            // removing the listener when props.x changes
-        }
-    }, [startDate])
-
     const fetchData = async (uid:string) => {
-        //const today = new Date();
-        //const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
         repo.getAllGratitudeByUserAndDate(date, uid).then(
             result => {
@@ -65,6 +55,12 @@ export default function App(){
         }
         );
     }
+
+    useEffect(() => {
+        let uid:string = auth.currentUser?.uid!;
+        fetchData(uid);
+
+    }, [fetchData, startDate])
 
     const signInWithSocialMedia = (provider: firebase.auth.AuthProvider) => {
         if (error !== '') setError('');
@@ -94,7 +90,7 @@ export default function App(){
 
     function LoginButton(props) {
         return (
-            <button className="custom" onClick={props.onClick}>
+            <button className="header-icon" onClick={props.onClick}>
                 <FontAwesomeIcon icon={faSignInAlt} />
             </button>
         );
@@ -102,7 +98,7 @@ export default function App(){
 
     function LogoutButton(props) {
         return (
-            <button className="custom" onClick={props.onClick}>
+            <button className="header-icon" onClick={props.onClick}>
                 <FontAwesomeIcon icon={faSignOutAlt} />
             </button>
         );
@@ -123,18 +119,17 @@ export default function App(){
 
     function handleDateChange(date) {
          setStartDate(date);
-    };
-
+    }
 
   return (
       <div className="container-fluid">
-          <div className="row">
-              <div className="col-md-6 offset-md-3">
-                  <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                      <div className="navbar-brand" ><h1 className="display-3 text-muted">Thankful Diary</h1></div>
+          <div className="row header-border">
+              <div className="col-md-6 offset-md-3 ">
+                  <nav className="navbar navbar-expand-lg navbar-light ">
+                      <div className="navbar-brand" ><h3 className="display-4">Thankful Diary</h3></div>
                       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                          <span className="navbar-toggler-icon"></span>
+                          <span className="navbar-toggler-icon"/>
                       </button>
                       <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                           <ul className="navbar-nav">
@@ -147,7 +142,7 @@ export default function App(){
               </div>
           </div>
           <div className="row">
-              <div className="col-md-3 outside"></div>
+              <div className="col-md-3 outside"/>
               <div className="col-md-6">
                   <div className="row">
                       <div className="col-md-6">
@@ -158,7 +153,7 @@ export default function App(){
                       </div>
                   </div>
               </div>
-              <div className="col-md-3 outside"></div>
+              <div className="col-md-3 outside"/>
           </div>
 
           <div className="row">
