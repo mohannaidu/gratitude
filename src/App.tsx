@@ -94,7 +94,7 @@ export default function App(){
 
     function LoginButton(props) {
         return (
-            <button className="custom" onClick={props.onClick}>
+            <button className="header-icon" onClick={props.onClick}>
                 <FontAwesomeIcon icon={faSignInAlt} />
             </button>
         );
@@ -102,7 +102,7 @@ export default function App(){
 
     function LogoutButton(props) {
         return (
-            <button className="custom" onClick={props.onClick}>
+            <button className="header-icon" onClick={props.onClick}>
                 <FontAwesomeIcon icon={faSignOutAlt} />
             </button>
         );
@@ -128,10 +128,10 @@ export default function App(){
 
   return (
       <div className="container-fluid">
-          <div className="row">
-              <div className="col-md-6 offset-md-3">
-                  <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                      <div className="navbar-brand" ><h1 className="display-3 text-muted">Thankful Diary</h1></div>
+          <div className="row header-border">
+              <div className="col-md-6 offset-md-3 ">
+                  <nav className="navbar navbar-expand-lg navbar-light ">
+                      <div className="navbar-brand" ><h3 className="display-4">Thankful Diary</h3></div>
                       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                           <span className="navbar-toggler-icon"></span>

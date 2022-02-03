@@ -1,8 +1,12 @@
 textarea {
+    border-color: #dbe2e6;
+    border-width: 0.3vh;
+    border-style: solid;
     resize: none;
     width: 100%;
     height: 250px;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;
+    outline-width: 0;
 }

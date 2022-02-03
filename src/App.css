@@ -1,4 +1,8 @@
 
+h4 {
+    font-family: Helvetica, Arial, sans-serif
+}
+
 .container {
     display: grid;
     gap: 1rem;
@@ -21,26 +25,38 @@
 .subheader > div{
     align-items: end;
 }
+
+.header-border{
+    border-bottom: 2px solid #dbe2e6;
+    padding-bottom: 1vh;
+}
+
 .react-datepicker-wrapper{
     width: 40%;
 }
 .react-datepicker__input-container > input{
     text-align: right;
     width: 100%;
+    border: 0.3vh solid #dbe2e6;
 }
 
 .row {
     padding-top: 10px;
 }
 
-.custom {
-    border: 2px solid gray;
-    color: gray;
-    background-color: white;
+.header-icon {
+    color: black;
+    background-color: rgb(198, 241, 109);
+    border: 2px rgb(198, 241, 109);
     padding: 8px 20px;
     border-radius: 8px;
     font-size: 18px;
     font-weight: bold;
+}
+
+.header-icon:hover {
+    background-color: rgb(128, 156, 77);
+    border-color: rgb(128, 156, 77);
 }
 
 @media only screen and (max-width: 360px) and (orientation: portrait){
@@ -48,3 +64,6 @@
         zoom: 50%;
     }
 }
+
+
+
