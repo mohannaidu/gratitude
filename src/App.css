@@ -59,8 +59,8 @@ h4 {
     border-color: rgb(128, 156, 77);
 }
 
-@media only screen and (max-width: 360px) and (orientation: portrait){
-    h1 {
+@media only screen and (max-width: 420px) and (orientation: portrait){
+    h3 {
         zoom: 50%;
     }
 }
