@@ -145,11 +145,11 @@ export default function App(){
           <div className="row">
               <div className="col-md-3 outside"/>
               <div className="col-md-6">
-                  <div className="row">
-                      <div className="col-md-6">
+                  <div className="subheader">
+                      <div className="subheader-greet">
                         Welcome {user.name}
                       </div>
-                      <div className="col-md-6 calendar">
+                      <div className="subheader-calendar calendar">
                           <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />
                       </div>
                   </div>

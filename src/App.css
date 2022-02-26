@@ -32,7 +32,7 @@ h4 {
 }
 
 .react-datepicker-wrapper{
-    width: 40%;
+    width: 60%;
 }
 .react-datepicker__input-container > input{
     text-align: right;
@@ -61,6 +61,20 @@ h4 {
 
 .div-style {
     justify-content: right
+}
+
+.subheader {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.subheader-greet{
+    flex: 2;
+}
+
+.subheader-calendar{
+    flex: 2;
 }
 
 @media only screen and (max-width: 420px) and (orientation: portrait){
