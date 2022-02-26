@@ -11,12 +11,10 @@ import { SignInWithSocialMedia } from './auth';
 import firebase from "firebase/app";
 import {Repository} from './db/repository';
 
-
 interface UserState {
     isAuthenticated: boolean;
     name: string;
 }
-
 
 export default function App(){
     const [startDate, setStartDate] = useState(new Date());
@@ -36,7 +34,8 @@ export default function App(){
                 fetchData(uid);
             } else {
                 console.log('No user detected');
-                setUser({isAuthenticated:false,name:""})
+                setUser({isAuthenticated:false,name:""});
+                noUserDefault();
             }
         })
 
@@ -55,6 +54,11 @@ export default function App(){
         }
         );
     }
+
+    const noUserDefault = async() => {
+        setEntries("1. ");
+    }
+
 
     useEffect(() => {
         let uid:string = auth.currentUser?.uid!;
