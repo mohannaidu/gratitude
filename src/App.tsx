@@ -127,11 +127,8 @@ export default function App(){
               <div className="col-md-6 offset-md-3 ">
                   <nav className="navbar navbar-expand-lg navbar-light ">
                       <div className="navbar-brand" ><h3 className="display-4">Thankful Diary</h3></div>
-                      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                          <span className="navbar-toggler-icon"/>
-                      </button>
-                      <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+                      <div className="justify-content-end div-style" id="navbarNav">
                           <ul className="navbar-nav">
                               <li className="nav-item">
                                   {button}
