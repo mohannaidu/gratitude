@@ -60,11 +60,11 @@ export default function App(){
     }
 
     // commented out to find out the problem
-    // useEffect(() => {
-    //     let uid:string = auth.currentUser?.uid!;
-    //     fetchData(uid);
-    //
-    // }, [fetchData, startDate])
+    useEffect(() => {
+        let uid:string = auth.currentUser?.uid!;
+        fetchData(uid);
+
+    }, [startDate])
 
     const signInWithSocialMedia = (provider: firebase.auth.AuthProvider) => {
         if (error !== '') setError('');
