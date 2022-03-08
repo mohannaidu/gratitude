@@ -80,7 +80,7 @@ export default function App(){
 
     const handleCallback = (childData: string): void => {
         const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
-        console.log(childData);
+        //console.log(childData);
         repo.create(childData, date);
     }
 
@@ -129,9 +129,8 @@ export default function App(){
       <div className="container-fluid">
           <div className="row header-border">
               <div className="col-md-6 offset-md-3 ">
-                  <nav className="navbar navbar-expand-lg navbar-light ">
+                  <nav className="navbar navbar-expand-lg ">
                       <div className="navbar-brand" ><h3 className="display-4">Thankful Diary</h3></div>
-
                       <div className="justify-content-end div-style" id="navbarNav">
                           <ul className="navbar-nav">
                               <li className="nav-item">
@@ -140,6 +139,9 @@ export default function App(){
                           </ul>
                       </div>
                   </nav>
+              </div>
+              <div className="col-md-6 offset-md-3 ">
+                  <h6 className="display-6 center-grid">before you begin your day, list 10 things you're grateful for</h6>
               </div>
           </div>
           <div className="row">

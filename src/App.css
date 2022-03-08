@@ -1,6 +1,14 @@
 
-h4 {
-    font-family: Helvetica, Arial, sans-serif
+h6 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+}
+
+.center-grid {
+    place-content: center;
+    display: grid;
+    margin-left: 4vw;
+    margin-right: 4vw;
 }
 
 .container {
@@ -79,9 +87,20 @@ h4 {
 
 @media only screen and (max-width: 420px) and (orientation: portrait){
     h3 {
-        zoom: 50%;
+        zoom: 60%;
     }
 }
 
+@media only screen and (min-width: 1000px){
+    .nav-item {
+        margin-left: 5vw;
+    }
+}
+
+@media only screen and (min-width: 1280px){
+    .nav-item {
+        margin-left: 12vw;
+    }
+}
 
 

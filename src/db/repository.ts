@@ -21,7 +21,7 @@ export class Repository {
                 } else {
                     let row: number = 1;
                     snapshot.docs.forEach(function (childSnapshot: any) {
-                        console.log(childSnapshot.data().text);
+                        //console.log(childSnapshot.data().text);
                         if (row === 1) {
                             entry = childSnapshot.data().text;
                             //console.log(entry);
