@@ -85,6 +85,13 @@ h6 {
     flex: 2;
 }
 
+.footer {
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:10vh;
+}
+
 @media only screen and (max-width: 420px) and (orientation: portrait){
     h3 {
         zoom: 60%;

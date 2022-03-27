@@ -164,6 +164,15 @@ export default function App(){
                   <ListEditor entry={entries} handleCallback={handleCallback} onEntryChange={onChange}/>
               </div>
           </div>
+
+          <div className="footer">
+              <div className="display-6 center-grid">
+                  <b>CONTACT US</b>
+              </div>
+              <div className="display-6 center-grid">
+                  maxcloud.co@gmail.com
+              </div>
+          </div>
       </div>
   );
 }
