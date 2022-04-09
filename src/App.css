@@ -16,13 +16,15 @@ h6 {
     gap: 1rem;
 }
 /*grid-gap: 10px;*/
-.outside{
-    /*background-color: blue;*/
-}
-.calendar{
+.align-right{
     display: flex;
     justify-content: right;
     align-items: flex-end;
+}
+
+.button-align{
+    vertical-align: top;
+    margin-left: 5vh;
 }
 
 .subheader{
@@ -71,12 +73,12 @@ h6 {
     justify-content: right
 }
 
-.subheader {
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+/*.subheader {*/
+/*    padding: 1rem;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 1rem;*/
+/*}*/
 .subheader-greet{
     flex: 2;
 }

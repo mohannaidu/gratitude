@@ -10,6 +10,7 @@ import {auth, Providers} from './config/firebase';
 import { SignInWithSocialMedia } from './auth';
 import firebase from "firebase/app";
 import {Repository} from './db/repository';
+import './custom.scss';
 
 interface UserState {
     isAuthenticated: boolean;
@@ -78,11 +79,11 @@ export default function App(){
             });
     }
 
-    const handleCallback = (childData: string): void => {
-        const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
-        //console.log(childData);
-        repo.create(childData, date);
-    }
+    // const handleCallback = (childData: string): void => {
+    //     const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
+    //     //console.log(childData);
+    //     repo.create(childData, date);
+    // }
 
     const isLoggedIn = user.isAuthenticated;
     let button;
@@ -117,6 +118,11 @@ export default function App(){
         setUser({isAuthenticated: false, name:""});
     }
 
+    function saveEntries(){
+        const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
+        repo.create(entries, date);
+    }
+
     function onChange(newName) {
         setEntries(newName);
     }
@@ -145,24 +151,40 @@ export default function App(){
               </div>
           </div>
           <div className="row">
-              <div className="col-md-3 outside"/>
+              <div className="col-md-3"/>
               <div className="col-md-6">
                   <div className="subheader">
                       <div className="subheader-greet">
                         Welcome {user.name}
                       </div>
-                      <div className="subheader-calendar calendar">
+                      <div className="subheader-calendar align-right">
                           <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />
                       </div>
                   </div>
               </div>
-              <div className="col-md-3 outside"/>
+              <div className="col-md-3"/>
           </div>
 
           <div className="row">
               <div className="col-md-6 offset-md-3">
-                  <ListEditor entry={entries} handleCallback={handleCallback} onEntryChange={onChange}/>
+                  <ListEditor entry={entries} onEntryChange={onChange}/>
               </div>
+          </div>
+
+          <div className="row">
+              <div className="col-md-3"/>
+              <div className="col-md-6 align-right">
+                <div className="subheader">
+                  <div className="alert alert-success" role="alert">
+                      Saved
+                  </div>
+                  <div>
+                    <button type="button" className="btn btn-primary btn-lg button-align"
+                            onClick={saveEntries}>Save</button>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-3"/>
           </div>
 
           <div className="footer">
