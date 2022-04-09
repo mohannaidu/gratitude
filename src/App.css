@@ -4,6 +4,7 @@ h6 {
     font-weight: lighter;
 }
 
+
 .center-grid {
     place-content: center;
     display: grid;
@@ -22,9 +23,13 @@ h6 {
     align-items: flex-end;
 }
 
+.button-align-right{
+    justify-content: right;
+}
+
 .button-align{
     vertical-align: top;
-    margin-left: 5vh;
+    margin-left: 3vh;
 }
 
 .subheader{

@@ -17,12 +17,13 @@ interface UserState {
     name: string;
 }
 
-export default function App(){
+export default function App(this: any){
     const [startDate, setStartDate] = useState(new Date());
     const [error, setError] = useState<string>('');
     const [user, setUser] = useState<UserState>({isAuthenticated:false, name:""});
     let repo: Repository = new Repository();
     const [entries, setEntries] = useState<string>('');
+    const [showResults, setShowResults] = React.useState(false)
 
     // Monitor and Update user state.
     useEffect(() => {
@@ -101,6 +102,17 @@ export default function App(){
         );
     }
 
+    const SaveAlert = () => (
+        <div className="alert alert-success" role="alert">
+            Saved
+        </div>
+    )
+
+    function resetAlert() {
+        setTimeout(() => {
+            setShowResults(false);
+        }, 1000);
+    }
     function LogoutButton(props) {
         return (
             <button className="header-icon" onClick={props.onClick}>
@@ -121,6 +133,8 @@ export default function App(){
     function saveEntries(){
         const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
         repo.create(entries, date);
+        setShowResults(true);
+        resetAlert();
     }
 
     function onChange(newName) {
@@ -172,17 +186,18 @@ export default function App(){
           </div>
 
           <div className="row">
-              <div className="col-md-3"/>
-              <div className="col-md-6 align-right">
-                <div className="subheader">
-                  <div className="alert alert-success" role="alert">
-                      Saved
+              <div className="col-md-3">
+              </div>
+              <div className="col-md-6 ">
+                  <div className="subheader">
+                      <div className="subheader-greet">
+                          { showResults ? <SaveAlert /> : null }
+                      </div>
+                      <div className="subheader-calendar button-align-right">
+                          <button type="button" className="btn btn-primary btn-lg button-align"
+                                  onClick={saveEntries}>Save</button>
+                      </div>
                   </div>
-                  <div>
-                    <button type="button" className="btn btn-primary btn-lg button-align"
-                            onClick={saveEntries}>Save</button>
-                  </div>
-                </div>
               </div>
               <div className="col-md-3"/>
           </div>
