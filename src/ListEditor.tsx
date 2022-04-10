@@ -4,7 +4,6 @@ import './ListEditor.css';
 
 interface Props {
     entry: string;
-    handleCallback: (arg: string) => void;
     onEntryChange: (arg: string) => void
 }
 
@@ -46,7 +45,7 @@ export class ListEditor extends Component<Props, State> {
         if (e.key ==="Enter") {
             const lineCount = this.getTextAreaLineCounter(this.props.entry);
 
-            this.props.handleCallback(this.props.entry);
+            //this.props.handleCallback(this.props.entry);
             this.setState({
                     counter : lineCount +1
                 }, () => {
