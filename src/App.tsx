@@ -98,7 +98,7 @@ export default function App(this: any){
 
     const SaveAlert = () => (
         <div className="alert alert-success" role="alert">
-            Saved
+            Saved ✅
         </div>
     )
 
