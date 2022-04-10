@@ -80,12 +80,6 @@ export default function App(this: any){
             });
     }
 
-    // const handleCallback = (childData: string): void => {
-    //     const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
-    //     //console.log(childData);
-    //     repo.create(childData, date);
-    // }
-
     const isLoggedIn = user.isAuthenticated;
     let button;
     if (isLoggedIn) {
@@ -188,7 +182,7 @@ export default function App(this: any){
           <div className="row">
               <div className="col-md-3">
               </div>
-              <div className="col-md-6 ">
+              <div className="col-md-6 offset-md-2">
                   <div className="subheader">
                       <div className="subheader-greet">
                           { showResults ? <SaveAlert /> : null }
