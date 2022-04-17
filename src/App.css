@@ -99,6 +99,9 @@ h6 {
     height:10vh;
 }
 
+.login-logout{
+}
+
 @media only screen and (max-width: 420px) and (orientation: portrait){
     h3 {
         zoom: 60%;

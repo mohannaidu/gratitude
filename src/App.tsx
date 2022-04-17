@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import {ListEditor} from "./ListEditor";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -91,7 +89,15 @@ export default function App(this: any){
     function LoginButton(props) {
         return (
             <button className="header-icon" onClick={props.onClick}>
-                <FontAwesomeIcon icon={faSignInAlt} />
+                <img src="/login.png" className="login-logout" alt="Login"/>
+            </button>
+        );
+    }
+
+    function LogoutButton(props) {
+        return (
+            <button className="header-icon" onClick={props.onClick}>
+                <img src="/exit.png"  className="login-logout" alt="Logout"/>
             </button>
         );
     }
@@ -107,13 +113,7 @@ export default function App(this: any){
             setShowResults(false);
         }, 1000);
     }
-    function LogoutButton(props) {
-        return (
-            <button className="header-icon" onClick={props.onClick}>
-                <FontAwesomeIcon icon={faSignOutAlt} />
-            </button>
-        );
-    }
+
 
     function handleLoginClick() {
         signInWithSocialMedia(Providers.google);
