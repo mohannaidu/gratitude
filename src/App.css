@@ -106,18 +106,24 @@ h6 {
     h3 {
         zoom: 60%;
     }
+    .login-logout {
+        width: 3vh;
+        height: 3vh;
+    }
 }
 
 @media only screen and (min-width: 1000px){
     .nav-item {
         margin-left: 5vw;
     }
+
 }
 
 @media only screen and (min-width: 1280px){
     .nav-item {
         margin-left: 12vw;
     }
+
 }
 
 
