@@ -166,7 +166,8 @@ export default function App(this: any){
                         Welcome {user.name}
                       </div>
                       <div className="subheader-calendar align-right">
-                          <DatePicker selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />
+                          <label className="form-label" htmlFor="datePicker">Date</label>
+                          <DatePicker id="datePicker" selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />
                       </div>
                   </div>
               </div>

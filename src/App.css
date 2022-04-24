@@ -47,7 +47,8 @@ h6 {
 }
 
 .react-datepicker-wrapper{
-    width: 60%;
+    width: 50%;
+    margin-left: 1vw;
 }
 .react-datepicker__input-container > input{
     text-align: right;
