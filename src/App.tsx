@@ -2,13 +2,13 @@ import React, {useState, useEffect} from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ListEditor} from "./ListEditor";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {auth, Providers} from './config/firebase';
 import { SignInWithSocialMedia } from './auth';
 import firebase from "firebase/app";
 import {Repository} from './db/repository';
 import './custom.scss';
+import { DatePicker } from "./component/DatePicker";
 
 interface UserState {
     isAuthenticated: boolean;
@@ -139,7 +139,12 @@ export default function App(this: any){
          setStartDate(date);
     }
 
-  return (
+    const selectedDay = (val) =>{
+        //console.log(val)
+    };
+
+
+    return (
       <div className="container-fluid">
           <div className="row header-border">
               <div className="col-md-6 offset-md-3 ">
@@ -165,9 +170,16 @@ export default function App(this: any){
                       <div className="subheader-greet">
                         Welcome {user.name}
                       </div>
-                      <div className="subheader-calendar align-right">
-                          <label className="form-label" htmlFor="datePicker">Date</label>
-                          <DatePicker id="datePicker" selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />
+                  </div>
+                  <div>
+                      <div >
+                          {/*<DatePicker id="datePicker" selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />*/}
+                          <DatePicker currentDate={startDate}
+                                      days={366}
+                                      selectDate={startDate}
+                                      getSelectedDay={selectedDay}
+                                      labelFormat={"MMMM yyyy"}
+                                      color={"#8bc414"}/>
                       </div>
                   </div>
               </div>
