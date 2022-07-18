@@ -41,45 +41,48 @@ export class Repository {
         return db.collection('users').get();
     }
 
-    create(gratitude, date) {
+    create(gratitude, date): Promise<string>  {
+        return new Promise(async (resolve, reject) => {
+            // console.log(date);
+            // '2021-10-02
+            const timestamp = firebase.firestore.Timestamp.fromDate(
+                new Date(date + ' 00:00:00')
+            )
+            let uid: string = '';
+            uid = auth.currentUser?.uid!;
+            //const userEmail = auth.currentUser?.email;
+            //console.log(userEmail);
 
-        // console.log(date);
-        // '2021-10-02
-        const timestamp = firebase.firestore.Timestamp.fromDate(
-            new Date(date+ ' 00:00:00')
-        )
-        let uid: string = '';
-        uid=  auth.currentUser?.uid!;
-        //const userEmail = auth.currentUser?.email;
-        //console.log(userEmail);
-
-        let collection = db.collection('users');
-        if (uid!==undefined) {
-            collection.doc(uid)
-                .collection('entry')
-                .where('date_of_entry', '==', timestamp)
-                .get().then(function (record) {
-                if (record.empty){ // this is for adding new record
-                    collection.doc(uid)
-                        .collection('entry').add({
-                        'date_of_entry' : timestamp,
-                        'text' : gratitude
-                    })
-                }
-                else{
+            let collection = db.collection('users');
+            if (uid !== undefined) {
+                const snapshot = await collection.doc(uid)
+                    .collection('entry')
+                    .where('date_of_entry', '==', timestamp)
+                    .get();
+                if (snapshot.empty) {// this is for adding new record
+                    collection.doc(uid).collection('entry').add({
+                        'date_of_entry': timestamp,
+                        'text': gratitude
+                    }).then((docRef) => {
+                        return resolve(docRef.id);
+                    }).catch((e) => {
+                        return reject(e);
+                    });
+                } else {
                     collection.doc(uid)
                         .collection('entry')
-                        .doc(record.docs[0].id)
+                        .doc(snapshot.docs[0].id)
                         .update({
-                            'date_of_entry' : timestamp,
-                            'text' : gratitude
-                        })
+                            'date_of_entry': timestamp,
+                            'text': gratitude
+                        }).then((docRef) => {
+                        return resolve(snapshot.docs[0].id);
+                    }).catch((e) => {
+                        return reject(e);
+                    });
                 }
-            });
-
-        }
-
-
+            }
+        })
     }
 
     update(docid, value) {

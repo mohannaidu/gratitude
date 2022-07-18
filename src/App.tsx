@@ -126,9 +126,14 @@ export default function App(this: any){
 
     function saveEntries(){
         const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
-        repo.create(entries, date);
-        setShowResults(true);
-        resetAlert();
+        repo.create(entries, date)
+            .then(result => {
+                setShowResults(true);
+                resetAlert();
+            }).catch(function(e) {
+            console.log(e);
+            });
+
     }
 
     function onChange(newName) {
@@ -173,7 +178,6 @@ export default function App(this: any){
                   </div>
                   <div>
                       <div >
-                          {/*<DatePicker id="datePicker" selected={startDate} wrapperClassName="datePicker" onChange={handleDateChange} />*/}
                           <DatePicker currentDate={startDate}
                                       days={366}
                                       selectDate={startDate}
