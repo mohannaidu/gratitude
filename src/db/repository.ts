@@ -1,5 +1,6 @@
 import {db, auth} from "../config/firebase";
 import firebase from 'firebase/app';
+import Timestamp = firebase.firestore.Timestamp;
 
 export class Repository {
     getAllGratitudeByUserAndDate(date: string, uid: string): Promise<string> {
@@ -21,16 +22,38 @@ export class Repository {
                 } else {
                     let row: number = 1;
                     snapshot.docs.forEach(function (childSnapshot: any) {
-                        //console.log(childSnapshot.data().text);
                         if (row === 1) {
                             entry = childSnapshot.data().text;
-                            //console.log(entry);
                             resolve(entry);
                         } else {
                             resolve('');
                         }
                         row++;
                     });
+                }
+
+            }
+        })
+    }
+
+    getGratitudeDateByUser(uid: string): Promise<Timestamp[]> {
+        return new Promise(async (resolve) => {
+            const dateEntries:Timestamp[] = [];
+            if (uid !== undefined) {
+                let collection = db.collection('users').doc(uid);
+                const snapshot = await collection
+                                        .collection('entry')
+                                        .orderBy('date_of_entry')
+                                        .limit(10)
+                                        .get();
+                if (snapshot.empty) {
+                    resolve(dateEntries);
+                } else {
+                    const dateEntries:Timestamp[] = [];
+                    snapshot.docs.forEach(function (childSnapshot: any) {
+                        dateEntries.push(childSnapshot.data().date_of_entry);
+                    });
+                    resolve(dateEntries);
                 }
 
             }
