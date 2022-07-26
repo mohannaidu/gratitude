@@ -21,8 +21,7 @@ export default function App(this: any) {
     const [user, setUser] = useState<UserState>({isAuthenticated: false, name: ""});
     let repo: Repository = new Repository();
     const [entries, setEntries] = useState<string>('');
-    const [showResults, setShowResults] = React.useState(false)
-    const [dateEntries, setDateEntries] = useState<Date[]>([]);
+    const [showResults, setShowResults] = React.useState(false);
     const [markedDates, setMarkedDates] = useState<any[]>([]);// need to find the type
 
     // Monitor and Update user state.
@@ -34,10 +33,11 @@ export default function App(this: any) {
                 let uid: string = auth.currentUser?.uid!;
                 setUser({isAuthenticated: true, name: displayName});
                 fetchData(uid);
+                const dateValues = new Array<Date>();
                 repo.getGratitudeDateByUser(uid)
                     .then(v => {
-                        v.forEach(s => setDateEntries(oldArray => [...oldArray, s.toDate()]));
-                        constructMarkedDates();
+                        v.forEach(s => dateValues.push(s.toDate()));
+                        constructMarkedDates(dateValues);
                     });
             } else {
                 console.log('No user detected');
@@ -47,7 +47,7 @@ export default function App(this: any) {
         })
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [markedDates]);
+    }, []);
 
     const fetchData = async (uid: string) => {
         const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
@@ -71,7 +71,7 @@ export default function App(this: any) {
         let uid: string = auth.currentUser?.uid!;
         fetchData(uid);
 
-    }, [startDate])
+    }, [fetchData, startDate])
 
     const signInWithSocialMedia = (provider: firebase.auth.AuthProvider) => {
         if (error !== '') setError('');
@@ -134,7 +134,7 @@ export default function App(this: any) {
     function saveEntries() {
         const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
         repo.create(entries, date)
-            .then(result => {
+            .then(() => {
                 setShowResults(true);
                 resetAlert();
             }).catch(function (e) {
@@ -151,9 +151,9 @@ export default function App(this: any) {
         setStartDate(date);
     }
 
-    function constructMarkedDates() {
+    function constructMarkedDates(dateValues: Date[]) {
         //console.log(e.getDate() + ' ' + e.getMonth() + ' ' + e.getFullYear())
-        dateEntries.forEach(e => {
+        dateValues.forEach(e => {
             setMarkedDates(oldArray => [...oldArray, {
                 date: new Date(e.getFullYear(), e.getMonth(), e.getDate()),
                 marked: true,
@@ -167,7 +167,7 @@ export default function App(this: any) {
             }]);
         }
         );
-    };
+    }
 
 
     return (

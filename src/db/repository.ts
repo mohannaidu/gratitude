@@ -43,7 +43,7 @@ export class Repository {
                 let collection = db.collection('users').doc(uid);
                 const snapshot = await collection
                                         .collection('entry')
-                                        .orderBy('date_of_entry')
+                                        .orderBy('date_of_entry',"desc")
                                         .limit(10)
                                         .get();
                 if (snapshot.empty) {
@@ -71,7 +71,7 @@ export class Repository {
             const timestamp = firebase.firestore.Timestamp.fromDate(
                 new Date(date + ' 00:00:00')
             )
-            let uid: string = '';
+            let uid: string;
             uid = auth.currentUser?.uid!;
             //const userEmail = auth.currentUser?.email;
             //console.log(userEmail);
@@ -98,7 +98,7 @@ export class Repository {
                         .update({
                             'date_of_entry': timestamp,
                             'text': gratitude
-                        }).then((docRef) => {
+                        }).then(() => {
                         return resolve(snapshot.docs[0].id);
                     }).catch((e) => {
                         return reject(e);
