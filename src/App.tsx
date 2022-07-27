@@ -17,6 +17,7 @@ interface UserState {
 
 export default function App(this: any) {
     const [startDate, setStartDate] = useState(new Date());
+    const [selectDate, setSelectDate] = useState(new Date());
     const [error, setError] = useState<string>('');
     const [user, setUser] = useState<UserState>({isAuthenticated: false, name: ""});
     let repo: Repository = new Repository();
@@ -50,7 +51,7 @@ export default function App(this: any) {
     }, []);
 
     const fetchData = async (uid: string) => {
-        const date = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
+        const date = selectDate.getFullYear() + '-' + (selectDate.getMonth() + 1) + '-' + selectDate.getDate();
         repo.getAllGratitudeByUserAndDate(date, uid).then(
             result => {
                 if (result) {
@@ -71,7 +72,7 @@ export default function App(this: any) {
         let uid: string = auth.currentUser?.uid!;
         fetchData(uid);
 
-    }, [fetchData, startDate])
+    }, [selectDate])
 
     const signInWithSocialMedia = (provider: firebase.auth.AuthProvider) => {
         if (error !== '') setError('');
@@ -148,7 +149,7 @@ export default function App(this: any) {
     }
 
     function handleDateChange(date) {
-        setStartDate(date);
+        setSelectDate(date);
     }
 
     function constructMarkedDates(dateValues: Date[]) {
@@ -202,7 +203,7 @@ export default function App(this: any) {
                         <div>
                             <DatePicker currentDate={startDate}
                                         days={366}
-                                        selectDate={startDate}
+                                        selectDate={selectDate}
                                         getSelectedDay={handleDateChange}
                                         marked={markedDates}
                                         labelFormat={"MMMM yyyy"}
